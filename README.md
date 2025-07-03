@@ -56,7 +56,6 @@ yarn dev
 - [React](https://reactjs.org/) - UI library
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [html2pdf.js](https://github.com/eKoopmans/html2pdf.js) - HTML to PDF conversion
-- [@dnd-kit](https://dndkit.com/) - Drag and drop functionality
 - [Vite](https://vitejs.dev/) - Frontend build tool
 
 ## License

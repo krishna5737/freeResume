@@ -33,26 +33,9 @@ const PersonalInfoForm = () => {
     setFormData(updatedData);
     updateSection('personalInfo', updatedData);
   };
-
-  const handleLinkChange = (label, url) => {
-    // Find if link with this label exists
-    const links = [...(formData.links || [])];
-    const existingIndex = links.findIndex(link => link.label === label);
-    
-    if (existingIndex >= 0) {
-      links[existingIndex].url = url;
-    } else {
-      links.push({ label, url });
-    }
-    
-    const updatedData = {
-      ...formData,
-      links
-    };
-    
-    setFormData(updatedData);
-    updateSection('personalInfo', updatedData);
-  };
+  
+  // We don't need a special handler for username fields anymore
+  // Just use the regular handleChange function for all fields
 
   return (
     <div className="space-y-4">
@@ -141,10 +124,7 @@ const PersonalInfoForm = () => {
             id="linkedinUsername"
             name="linkedinUsername"
             value={formData.linkedinUsername || ''}
-            onChange={(e) => {
-              handleChange(e);
-              handleLinkChange('LinkedIn', e.target.value);
-            }}
+            onChange={handleChange}
             className="w-full border border-gray-300 rounded-md px-3 py-2"
             placeholder="krishankumar12"
           />
@@ -157,10 +137,7 @@ const PersonalInfoForm = () => {
             id="githubUsername"
             name="githubUsername"
             value={formData.githubUsername || ''}
-            onChange={(e) => {
-              handleChange(e);
-              handleLinkChange('GitHub', e.target.value);
-            }}
+            onChange={handleChange}
             className="w-full border border-gray-300 rounded-md px-3 py-2"
             placeholder="krishna5737"
           />

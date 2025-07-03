@@ -36,14 +36,7 @@ const SectionOrderManager = () => {
         };
       }
       
-      // Check if it's a custom section
-      const customSection = resumeData.customSections?.find(s => s.key === sectionId);
-      if (customSection) {
-        return {
-          id: customSection.key,
-          label: customSection.title
-        };
-      }
+      // Custom section functionality will be rebuilt from scratch
       
       // Fallback for unknown sections
       return {
@@ -53,7 +46,7 @@ const SectionOrderManager = () => {
     });
     
     setSections(items);
-  }, [resumeData.sectionOrder, resumeData.customSections]);
+  }, [resumeData.sectionOrder]);
 
   // Move a section up in the order
   const moveUp = (index) => {

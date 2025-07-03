@@ -3,7 +3,7 @@ import { parseMarkdown } from '../../utils/markdownParser';
 
 const ResumePreview = () => {
   const { resumeData } = useResume();
-  const { personalInfo, summary, experience, education, skills, projects, certifications, achievements, customSections, pageBreaks, sectionOrder = [] } = resumeData;
+  const { personalInfo, summary, experience, education, skills, projects, certifications, achievements, pageBreaks, sectionOrder = [] } = resumeData;
 
   // Function to render a section based on its ID
   const renderSection = (sectionId) => {
@@ -189,30 +189,7 @@ const ResumePreview = () => {
           </div>
         ));
       default:
-        // Check if it's a custom section
-        const customSection = customSections?.find(section => section.key === sectionId);
-        if (customSection) {
-          return (
-            <div key={customSection.key} className="mb-4 text-left">
-              <SectionHeading title={customSection.title} />
-              {customSection.items.map((item, index) => (
-                <div key={index} className="mb-2">
-                  <div className="flex justify-between">
-                    <h3 className="font-bold">{item.title}</h3>
-                    {item.date && <p className="text-sm text-gray-600">{item.date}</p>}
-                  </div>
-                  {item.subtitle && <p className="text-sm">{item.subtitle}</p>}
-                  {item.description && (
-                    <div 
-                      className="text-sm mt-1"
-                      dangerouslySetInnerHTML={{ __html: parseMarkdown(item.description) }}
-                    />
-                  )}
-                </div>
-              ))}
-            </div>
-          );
-        }
+        // Custom section functionality will be rebuilt from scratch
         return null;
     }
   };
@@ -328,12 +305,7 @@ const ResumePreview = () => {
               <div className="resume-section">{renderSection('projects')}</div>
               <div className="resume-section">{renderSection('certifications')}</div>
               <div className="resume-section">{renderSection('achievements')}</div>
-              {/* Render custom sections */}
-              {customSections && customSections.map((section, index) => (
-                <div key={`custom-${section.key}-${index}`} className="resume-section">
-                  {renderSection(section.key)}
-                </div>
-              ))}
+              {/* Custom section functionality will be rebuilt from scratch */}
             </>
           )}
         </div>

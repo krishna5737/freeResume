@@ -8,12 +8,11 @@ import SkillsForm from './SkillsForm';
 import ProjectsForm from './ProjectsForm';
 import CertificationsForm from './CertificationsForm';
 import AchievementsForm from './AchievementsForm';
-import CustomSectionForm from './CustomSectionForm';
 // import PageBreakForm from './PageBreakForm';
 
 const ResumeForm = () => {
-  const { resumeData, addCustomSection, updateSectionOrder } = useResume();
-  const [newSectionName, setNewSectionName] = useState('');
+  const { resumeData, updateSectionOrder } = useResume();
+  // Custom section functionality will be rebuilt from scratch
   // Only one section can be open at a time
   const [expandedSection, setExpandedSection] = useState('personalInfo');
   // Drag and drop state
@@ -33,14 +32,7 @@ const ResumeForm = () => {
     // { id: 'pageBreak', label: 'Page Break', component: <PageBreakForm /> },
   ];
 
-  const handleAddCustomSection = (e) => {
-    e.preventDefault();
-    if (newSectionName.trim()) {
-      const newSectionKey = addCustomSection(newSectionName);
-      setExpandedSection(newSectionKey); // Open the newly created section
-      setNewSectionName('');
-    }
-  };
+  // Custom section functionality will be rebuilt from scratch
 
   const toggleSection = (sectionKey) => {
     // If clicking on the already expanded section, close it
@@ -115,14 +107,7 @@ const ResumeForm = () => {
     sectionMap[section.id] = section;
   });
   
-  // Add custom sections to the map
-  resumeData.customSections.forEach(section => {
-    sectionMap[section.key] = {
-      id: section.key,
-      label: section.title,
-      component: <CustomSectionForm section={section} />
-    };
-  });
+  // Custom section functionality will be rebuilt from scratch
   
   // Get ordered sections based on sectionOrder from context
   const sections = [];
@@ -145,13 +130,7 @@ const ResumeForm = () => {
   } else {
     // If no order is specified, use default order
     sections.push(...sectionDefinitions);
-    resumeData.customSections.forEach(section => {
-      sections.push({
-        id: section.key,
-        label: section.title,
-        component: <CustomSectionForm section={section} />
-      });
-    });
+    // Custom section functionality will be rebuilt from scratch
   }
 
   return (
@@ -203,26 +182,6 @@ const ResumeForm = () => {
             </div>
           );
         })}
-      </div>
-      
-      {/* Add Custom Section */}
-      <div className="mt-8 border-t pt-4">
-        <h3 className="text-lg font-medium mb-3">Add Custom Section</h3>
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={newSectionName}
-            onChange={(e) => setNewSectionName(e.target.value)}
-            placeholder="Section Name"
-            className="border px-2 py-1 flex-1"
-          />
-          <button
-            onClick={handleAddCustomSection}
-            className="px-3 py-1 border bg-gray-100"
-          >
-            Add
-          </button>
-        </div>
       </div>
     </div>
   );

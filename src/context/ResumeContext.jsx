@@ -245,30 +245,7 @@ export const ResumeProvider = ({ children }) => {
     });
   };
 
-  // Add a custom section
-  const addCustomSection = (title) => {
-    const key = title.toLowerCase().replace(/\s+/g, '_');
-    
-    // Add to custom sections
-    setResumeData(prev => ({
-      ...prev,
-      customSections: [
-        ...prev.customSections,
-        { key, title, items: [] }
-      ]
-    }));
-    
-    return key; // Return the key for the new section
-  };
-
-  // Remove a custom section
-  const removeCustomSection = (key) => {
-    // Remove from custom sections
-    setResumeData(prev => ({
-      ...prev,
-      customSections: prev.customSections.filter(section => section.key !== key)
-    }));
-  };
+  // Custom sections functionality will be rebuilt from scratch
 
   // Update section order (for drag and drop reordering)
   const updateSectionOrder = (newOrder) => {
@@ -300,8 +277,6 @@ export const ResumeProvider = ({ children }) => {
         addItem,
         updateItem,
         removeItem,
-        addCustomSection,
-        removeCustomSection,
         updateSectionOrder,
         setActiveTheme,
         setActiveFont,

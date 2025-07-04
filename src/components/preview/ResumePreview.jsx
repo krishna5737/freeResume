@@ -1,8 +1,11 @@
 import { useResume } from '../../context/ResumeContext';
+import { useTheme } from '../../context/ThemeContext';
 import { parseMarkdown } from '../../utils/markdownParser';
+import ThemedSectionHeading from '../theme/ThemedSectionHeading';
 
 const ResumePreview = () => {
   const { resumeData } = useResume();
+  const { theme } = useTheme();
   const { personalInfo, summary, experience, education, skills, projects, certifications, achievements, pageBreaks, sectionOrder = [] } = resumeData;
 
   // Function to render a section based on its ID
@@ -12,7 +15,7 @@ const ResumePreview = () => {
       case 'summary':
         return summary && (
           <div className="mb-4 text-left" key="summary-section">
-            <SectionHeading title="Summary" />
+            <ThemedSectionHeading title="Summary" />
             <p 
               className="text-sm"
               dangerouslySetInnerHTML={{ __html: parseMarkdown(summary) }}
@@ -22,7 +25,7 @@ const ResumePreview = () => {
       case 'experience':
         return experience && experience.length > 0 && (
           <div className="mb-4 text-left" key="experience-section">
-            <SectionHeading title="Experience" />
+            <ThemedSectionHeading title="Experience" />
             <div className="space-y-2">
               {experience.map((job, index) => (
                 <div key={index} className="space-y-1">
@@ -30,7 +33,7 @@ const ResumePreview = () => {
                     <div className="flex">
                       <div className="font-semibold">{job.position}</div>
                       <span>&nbsp;at&nbsp;</span>
-                      <div style={{ color: '#3B82F6' }}>{job.company}</div>
+                      <div style={{ color: `var(--color-accent-text)` }} className="font-medium">{job.company}</div>
                     </div>
                     <div className="text-sm text-gray-500">
                       {job.startDate} - {job.current ? 'Present' : job.endDate}
@@ -50,7 +53,7 @@ const ResumePreview = () => {
       case 'education':
         return education && education.length > 0 && (
           <div className="mb-4 text-left" key="education-section">
-            <SectionHeading title="Education" />
+            <ThemedSectionHeading title="Education" />
             <div className="space-y-2">
               {education.map((edu, index) => (
                 <div key={index} className="space-y-1">
@@ -58,7 +61,7 @@ const ResumePreview = () => {
                     <div className="font-semibold">{edu.degree}</div>
                     <div className="text-sm text-gray-500">{edu.startDate} - {edu.endDate}</div>
                   </div>
-                  <div style={{ color: '#3B82F6' }}>{edu.institution}</div>
+                  <div style={{ color: `var(--color-accent-text)` }} className="font-medium">{edu.institution}</div>
                   {edu.description && (
                     <p className="text-sm">{edu.description}</p>
                   )}
@@ -70,10 +73,10 @@ const ResumePreview = () => {
       case 'skills':
         return skills && skills.length > 0 && (
           <div className="mb-4 text-left" key="skills-section">
-            <SectionHeading title="Skills" />
+            <ThemedSectionHeading title="Skills" />
             <div className="flex flex-wrap gap-2">
               {skills.map((skill, index) => (
-                <span key={index} className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+                <span key={index} className={`${theme.skillBadge} text-xs px-2 py-1 rounded skill-badge`}>
                   {typeof skill === 'object' ? skill.name : skill}
                 </span>
               ))}
@@ -83,7 +86,7 @@ const ResumePreview = () => {
       case 'projects':
         return projects && projects.length > 0 && (
           <div className="mb-4 text-left" key="projects-section">
-            <SectionHeading title="Projects" />
+            <ThemedSectionHeading title="Projects" />
             <div className="space-y-3">
               {projects.map((project, index) => (
                 <div key={index} className="space-y-1">
@@ -102,7 +105,8 @@ const ResumePreview = () => {
                       href={project.link} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-xs text-blue-600 hover:text-blue-800 inline-flex items-center"
+                      style={{ color: `var(--color-accent-text)` }} 
+                      className="text-xs hover:underline inline-flex items-center"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
@@ -119,7 +123,7 @@ const ResumePreview = () => {
       case 'certifications':
         return certifications && certifications.length > 0 && (
           <div className="mb-4 text-left" key="certifications-section">
-            <SectionHeading title="Certifications" />
+            <ThemedSectionHeading title="Certifications" />
             <div className="space-y-2">
               {certifications.map((cert, index) => (
                 <div key={index} className="space-y-1">
@@ -139,7 +143,7 @@ const ResumePreview = () => {
       case 'achievements':
         return achievements && achievements.length > 0 && (
           <div className="mb-4 text-left" key="achievements-section">
-            <SectionHeading title="Achievements" />
+            <ThemedSectionHeading title="Achievements" />
             <div className="space-y-1">
               {achievements.map((achievement, index) => (
                 <div key={index} className="flex items-center">
@@ -154,7 +158,8 @@ const ResumePreview = () => {
                           href={achievement.url} 
                           target="_blank" 
                           rel="noopener noreferrer"
-                          className="ml-2 text-blue-600 hover:text-blue-800 text-xs inline-flex items-center"
+                          style={{ color: `var(--color-accent-text)` }} 
+                          className="ml-2 hover:underline text-xs inline-flex items-center"
                         >
                           <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
@@ -269,19 +274,21 @@ const ResumePreview = () => {
   );
   
   // Section heading component with styling matching the HTML example
-  const SectionHeading = ({ title }) => (
-    <h2 
-      className="text-base font-bold my-2 uppercase font-sans bg-muted px-2 py-1 rounded" 
-      style={{ color: '#2B4C7E', backgroundColor: '#f1f5f9' }}
-    >
-      {title}
-    </h2>
-  );
+  const SectionHeading = ({ title }) => {
+    const { theme } = useTheme();
+    return (
+      <h2 
+        className={`text-base font-bold my-2 uppercase font-sans px-2 py-1 rounded ${theme.sectionHeading}`}
+      >
+        {title}
+      </h2>
+    );
+  };
 
   return (
     <div 
       id="resume-preview" 
-      className="bg-white border border-gray-200 overflow-hidden mx-auto max-w-4xl shadow-sm"
+      className="bg-white shadow-lg border theme-border rounded-lg p-8 max-w-4xl mx-auto my-8"
     >
       <div className="px-10 py-7 print:p-0">
         <Header />

@@ -1,7 +1,10 @@
 import html2pdf from 'html2pdf.js';
+import { themes } from '../../context/ThemeContext';
 
 // Helper function to prepare the resume element for PDF generation
 const prepareResumeElement = () => {
+  // Get the current theme from localStorage
+  const currentTheme = localStorage.getItem('resumeTheme') || 'light';
   // Get the resume preview element
   const element = document.getElementById('resume-preview');
   
@@ -40,7 +43,7 @@ const prepareResumeElement = () => {
     });
   });
   
-  // Remove border
+  // Remove border and apply theme styles
   const styles = document.createElement('style');
   styles.textContent = `
     #resume-preview {
@@ -49,10 +52,47 @@ const prepareResumeElement = () => {
     .border {
       border: none !important;
     }
+    
+    /* Apply current theme styles */
+    #resume-preview {
+      color: var(--color-text) !important;
+      background-color: var(--color-bg) !important;
+    }
+    
+    #resume-preview h1, #resume-preview h2, #resume-preview h3, #resume-preview h4 {
+      color: var(--color-heading) !important;
+    }
+    
+    #resume-preview .skill-badge {
+      background-color: var(--color-skill-bg) !important;
+      color: var(--color-skill-text) !important;
+    }
+    
+    #resume-preview .accent-text {
+      color: var(--color-accent-text) !important;
+    }
+    
+    /* Apply theme color variables to buttons and interactive elements */
+    #resume-preview .theme-button {
+      background-color: var(--color-button-bg) !important;
+      color: var(--color-button-text) !important;
+    }
+    
+    #resume-preview .theme-button:hover {
+      background-color: var(--color-button-hover) !important;
+    }
+    
+    /* Apply theme border colors */
+    #resume-preview .theme-border {
+      border-color: var(--color-border) !important;
+    }
   `;
   document.head.appendChild(styles);
   
-  return { element, styles };
+  // Add the current theme class to the cloned element
+  clonedElement.classList.add(`theme-${currentTheme}`);
+  
+  return { element: clonedElement, styles };
 };
 
 // Helper function to add footer to all pages

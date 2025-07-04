@@ -3,9 +3,140 @@
   img {
     @apply inline-block;
   }
+  
+  /* Theme CSS variables */
+  :root {
+    /* Default variables that will be overridden by theme classes */
+    --color-primary: #1e40af; /* Blue-800 */
+    --color-secondary: #2563eb; /* Blue-600 */
+    --color-accent: #60a5fa; /* Blue-400 */
+    
+    --color-bg: #ffffff;
+    --color-text: #1f2937;
+    --color-heading: var(--color-primary);
+    --color-border: #e5e7eb;
+    --color-accent-text: var(--color-secondary);
+    --color-skill-bg: #dbeafe;
+    --color-skill-text: var(--color-primary);
+    --color-header-bg: #eff6ff;
+    --color-sidebar-bg: #ffffff;
+    --color-form-bg: #f9fafb;
+    --color-card-bg: #ffffff;
+    --color-button-bg: var(--color-secondary);
+    --color-button-hover: var(--color-primary);
+    --color-button-text: #ffffff;
+  }
+  
+  /* Blue theme */
+  .theme-blue {
+    --color-primary: #1e40af; /* Blue-800 */
+    --color-secondary: #2563eb; /* Blue-600 */
+    --color-accent: #60a5fa; /* Blue-400 */
+    
+    --color-bg: #ffffff;
+    --color-text: #1f2937;
+    --color-heading: var(--color-primary);
+    --color-border: #bfdbfe;
+    --color-accent-text: var(--color-secondary);
+    --color-skill-bg: #dbeafe;
+    --color-skill-text: var(--color-primary);
+    --color-header-bg: #eff6ff;
+    --color-sidebar-bg: #ffffff;
+    --color-form-bg: #f9fafb;
+    --color-card-bg: #ffffff;
+    --color-button-bg: var(--color-secondary);
+    --color-button-hover: var(--color-primary);
+    --color-button-text: #ffffff;
+  }
+  
+  /* Green theme */
+  .theme-green {
+    --color-primary: #166534; /* Green-800 */
+    --color-secondary: #16a34a; /* Green-600 */
+    --color-accent: #2dd4bf; /* Teal-400 */
+    
+    --color-bg: #ffffff;
+    --color-text: #1f2937;
+    --color-heading: var(--color-primary);
+    --color-border: #bbf7d0;
+    --color-accent-text: var(--color-secondary);
+    --color-skill-bg: #dcfce7;
+    --color-skill-text: var(--color-primary);
+    --color-header-bg: #f0fdf4;
+    --color-sidebar-bg: #ffffff;
+    --color-form-bg: #f9fafb;
+    --color-card-bg: #ffffff;
+    --color-button-bg: var(--color-secondary);
+    --color-button-hover: var(--color-primary);
+    --color-button-text: #ffffff;
+  }
+  
+  /* Purple theme */
+  .theme-purple {
+    --color-primary: #581c87; /* Purple-900 */
+    --color-secondary: #9333ea; /* Purple-600 */
+    --color-accent: #a78bfa; /* Violet-400 */
+    
+    --color-bg: #ffffff;
+    --color-text: #1f2937;
+    --color-heading: var(--color-primary);
+    --color-border: #e9d5ff;
+    --color-accent-text: var(--color-secondary);
+    --color-skill-bg: #f3e8ff;
+    --color-skill-text: var(--color-primary);
+    --color-header-bg: #faf5ff;
+    --color-sidebar-bg: #ffffff;
+    --color-form-bg: #f9fafb;
+    --color-card-bg: #ffffff;
+    --color-button-bg: var(--color-secondary);
+    --color-button-hover: var(--color-primary);
+    --color-button-text: #ffffff;
+  }
+  
+
+  
+  /* Gray theme */
+  .theme-gray {
+    --color-primary: #1f2937; /* Gray-800 */
+    --color-secondary: #4b5563; /* Gray-600 */
+    --color-accent: #9ca3af; /* Gray-400 */
+    --color-bg: #ffffff;
+    --color-text: #1f2937;
+    --color-heading: var(--color-primary);
+    --color-border: #d1d5db;
+    --color-accent-text: var(--color-secondary);
+    --color-skill-bg: #e5e7eb;
+    --color-skill-text: var(--color-primary);
+    --color-header-bg: #f3f4f6;
+    --color-sidebar-bg: #ffffff;
+    --color-form-bg: #f9fafb;
+    --color-card-bg: #ffffff;
+    --color-button-bg: var(--color-secondary);
+    --color-button-hover: var(--color-primary);
+    --color-button-text: #ffffff;
+  }
 }
 @tailwind components;
 @tailwind utilities;
+
+/* Theme utility classes */
+.theme-button {
+  background-color: var(--color-button-bg);
+  color: var(--color-button-text);
+  transition: all 0.2s ease;
+}
+
+.theme-button:hover {
+  background-color: var(--color-button-hover);
+}
+
+.theme-border {
+  border-color: var(--color-border);
+}
+
+.accent-text {
+  color: var(--color-accent-text);
+}
 
 /* Resume specific styles */
 @layer components {

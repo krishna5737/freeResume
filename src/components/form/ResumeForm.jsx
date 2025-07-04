@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useResume } from '../../context/ResumeContext';
+import { useTheme } from '../../context/ThemeContext';
 import PersonalInfoForm from './PersonalInfoForm';
 import SummaryForm from './SummaryForm';
 import ExperienceForm from './ExperienceForm';
@@ -12,6 +13,7 @@ import AchievementsForm from './AchievementsForm';
 
 const ResumeForm = () => {
   const { resumeData, updateSectionOrder } = useResume();
+  const { theme } = useTheme();
   // Custom section functionality will be rebuilt from scratch
   // Only one section can be open at a time
   const [expandedSection, setExpandedSection] = useState('personalInfo');

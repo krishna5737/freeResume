@@ -48,9 +48,28 @@ const prepareResumeElement = () => {
   styles.textContent = `
     #resume-preview {
       border: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      max-width: 100% !important;
     }
+    
     .border {
       border: none !important;
+    }
+    
+    /* Add balanced padding in resume content */
+    #resume-preview > div {
+      padding: 8mm !important;
+    }
+    
+    /* Add more spacing between sections */
+    #resume-preview .mb-4 {
+      margin-bottom: 1rem !important;
+    }
+    
+    /* Add spacing between items in sections */
+    #resume-preview .space-y-2 > div {
+      margin-bottom: 0.75rem !important;
     }
     
     /* Apply current theme styles */
@@ -146,7 +165,7 @@ export const generatePDF = () => {
   
   // Configure html2pdf options
   const opt = {
-    margin: [0, 3, 15, 3], // top, right, bottom, left (in mm)
+    margin: [3, 3, 15, 3], // top, right, bottom, left (in mm) - minimal margins
     filename: 'resume.pdf',
     image: { type: 'jpeg', quality: 1 },
     html2canvas: { 
@@ -154,12 +173,16 @@ export const generatePDF = () => {
       useCORS: true,
       letterRendering: true,
       logging: false,
-      dpi: 300
+      dpi: 300,
+      windowWidth: document.documentElement.offsetWidth,
+      windowHeight: document.documentElement.offsetHeight
     },
     jsPDF: { 
       unit: 'mm', 
       format: 'a4', 
-      orientation: 'portrait'
+      orientation: 'portrait',
+      compress: true,
+      precision: 16
     }
   };
   
@@ -176,61 +199,6 @@ export const generatePDF = () => {
     })
     .save()
     .then(() => {
-      // Clean up
-      setTimeout(() => {
-        document.head.removeChild(styles);
-      }, 1000);
-    });
-};
-
-// Helper function to preview the PDF without downloading
-export const previewPDF = () => {
-  // Prepare the resume element
-  const prepared = prepareResumeElement();
-  if (!prepared) return;
-  
-  const { element, styles } = prepared;
-  
-  // Get user name for the footer
-  const userName = element.querySelector('h1')?.textContent || 'Resume';
-  
-  // Configure html2pdf options
-  const opt = {
-    margin: [10, 3, 15, 3], // top, right, bottom, left (in mm)
-    filename: 'resume.pdf',
-    image: { type: 'jpeg', quality: 1 },
-    html2canvas: { 
-      scale: 4,
-      useCORS: true,
-      letterRendering: true,
-      logging: false,
-      dpi: 300
-    },
-    jsPDF: { 
-      unit: 'mm', 
-      format: 'a4', 
-      orientation: 'portrait'
-    },
-    pagebreak: { mode: 'avoid-all' },
-    output: 'dataurlnewwindow'
-  };
-  
-  // Generate PDF with footer
-  html2pdf()
-    .set(opt)
-    .from(element)
-    .toPdf()
-    .get('pdf')
-    .then(pdf => {
-      // Add footer to all pages
-      addFooterToPages(pdf, userName);
-      return pdf;
-    })
-    .output('dataurlnewwindow')
-    .catch(error => {
-      console.error('Error previewing PDF:', error);
-    })
-    .finally(() => {
       // Clean up
       setTimeout(() => {
         document.head.removeChild(styles);

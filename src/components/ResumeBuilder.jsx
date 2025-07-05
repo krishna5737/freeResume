@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useResume } from '../context/ResumeContext';
 import { useTheme } from '../context/ThemeContext';
+import { useTemplate } from '../context/TemplateContext';
 import ResumeForm from './form/ResumeForm';
-import ResumePreview from './preview/ResumePreview';
+import TemplateRenderer from './template/TemplateRenderer';
 import ThemeSwitcher from './theme/ThemeSwitcher';
+import TemplateSwitcher from './template/TemplateSwitcher';
 import { generatePDF } from './utils/pdfGenerator';
 
 const ResumeBuilder = () => {
@@ -39,14 +41,20 @@ const ResumeBuilder = () => {
             <ResumeForm />
           </div>
           
-          <div className={`flex justify-between sticky bottom-0 ${theme.sidebarBackground} pt-4 pb-2 border-t ${theme.border}`}>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="text-sm font-medium">Theme:</div>
-              <ThemeSwitcher />
+          <div className={`sticky bottom-0 ${theme.sidebarBackground} pt-4 pb-2 border-t ${theme.border}`}>
+            <div className="flex justify-between items-center mb-3">
+              <div className="flex items-center gap-2">
+                <div className="text-sm font-medium">Theme:</div>
+                <ThemeSwitcher />
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="text-sm font-medium">Template:</div>
+                <TemplateSwitcher />
+              </div>
             </div>
             <button
               onClick={handleGeneratePDF}
-              className={`p-2 rounded theme-button ${theme.buttonPrimary}`}
+              className={`w-full p-2 rounded theme-button ${theme.buttonPrimary}`}
             >
               Download PDF
             </button>
@@ -56,7 +64,7 @@ const ResumeBuilder = () => {
         {/* Right side - Preview */}
         <div className={`md:w-1/2 ${theme.formBackground} overflow-y-auto`}>
           <div className="max-w-4xl mx-auto">
-            <ResumePreview />
+            <TemplateRenderer />
           </div>
         </div>
       </div>

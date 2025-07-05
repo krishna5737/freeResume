@@ -53,7 +53,7 @@ const sampleResumeData = {
       startDate: "June 2018",
       endDate: "Sep. 2020",
       current: false,
-      description: "• Led the redesign and redevelopment of the Property Editor, significantly improving usability and overall user experience.\n• Optimized the build pipeline by refactoring the codebase—reducing build time from 3 minutes to 8 seconds and shrinking build size from 10MB to 500KB.\n• Built an interactive Map Chart visualization from scratch, enabling users to explore and analyze geographical data efficiently.\n• Developed and enhanced data analytics visualizations, owning the full cycle from development to testing and support.\n• Worked across a range of front-end technologies including HTML5, CSS, JavaScript (Vanilla and ReactJS), D3.js, and AG Grid.\n"
+      description: "• Led the redesign and redevelopment of the Property Editor, significantly improving usability and overall user experience.\n• Optimized the build pipeline by refactoring the codebase—reducing build time from 3 minutes to 8 seconds and shrinking build size from 10MB to 500KB.\n• Built an interactive Map Chart visualization from scratch, enabling users to explore and analyze geographical data efficiently.\n• Developed and enhanced data analytics visualizations, owning the full cycle from development to testing and support. \n"
     },
     {
       company: "MAQ Software",

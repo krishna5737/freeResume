@@ -93,7 +93,27 @@
     --color-button-text: #ffffff;
   }
   
-
+  /* Red theme */
+  .theme-red {
+    --color-primary: #991b1b; /* Red-800 */
+    --color-secondary: #dc2626; /* Red-600 */
+    --color-accent: #f87171; /* Red-400 */
+    
+    --color-bg: #ffffff;
+    --color-text: #1f2937;
+    --color-heading: var(--color-primary);
+    --color-border: #fecaca;
+    --color-accent-text: var(--color-secondary);
+    --color-skill-bg: #fee2e2;
+    --color-skill-text: var(--color-primary);
+    --color-header-bg: #fef2f2;
+    --color-sidebar-bg: #ffffff;
+    --color-form-bg: #f9fafb;
+    --color-card-bg: #ffffff;
+    --color-button-bg: var(--color-secondary);
+    --color-button-hover: var(--color-primary);
+    --color-button-text: #ffffff;
+  }
   
   /* Gray theme */
   .theme-gray {

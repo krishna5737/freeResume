@@ -6,11 +6,23 @@ export const templates = {
     id: 'classic',
     name: 'Classic',
     description: 'A clean, professional design with traditional layout',
+    defaultTheme: 'blue', // Default theme for classic template
+    recommendedThemes: [
+      { id: 'blue', name: 'Blue' },
+      { id: 'gray', name: 'Gray' },
+      { id: 'green', name: 'Green' }
+    ]
   },
   modern: {
     id: 'modern',
     name: 'Modern',
     description: 'A colorful design with section titles highlighted in theme colors',
+    defaultTheme: 'red', // Default theme for modern template
+    recommendedThemes: [
+      { id: 'purple', name: 'Purple' },
+      { id: 'red', name: 'Red' },
+      { id: 'green', name: 'Green' }
+    ]
   }
 };
 

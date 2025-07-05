@@ -17,22 +17,6 @@ const ResumeBuilder = () => {
 
   return (
     <div className={`min-h-screen flex flex-col ${theme.background} ${theme.text}`}>
-      {/* <header className="bg-white border-b py-4">
-        <div className="container mx-auto flex justify-between items-center px-4">
-          <h1 className="text-2xl font-bold">Resume Builder</h1>
-          <button 
-            onClick={() => toggleDarkMode()}
-            className="p-1 border border-gray-300 rounded"
-            aria-label="Toggle dark mode"
-          >
-            {darkMode ? '☀️' : '🌙'}
-          </button>
-        </div>
-      </header> */}
-
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between border-b mb-4">
-        <h1 className="text-2xl font-bold">Resume Builder</h1>
-      </div>
 
       <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
         {/* Left side - Edit Form */}

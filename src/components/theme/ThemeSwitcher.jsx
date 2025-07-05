@@ -9,6 +9,7 @@ const ThemeSwitcher = () => {
   // Color mappings for theme swatches
   const themeColors = {
     blue: ['#1e40af', '#2563eb', '#60a5fa'],  // Navy, Medium Blue, Sky Blue
+    red: ['#991b1b', '#dc2626', '#f87171'],    // Dark Red, Medium Red, Light Red
     green: ['#166534', '#16a34a', '#2dd4bf'],  // Dark Green, Medium Green, Teal
     purple: ['#581c87', '#9333ea', '#a78bfa'], // Deep Purple, Medium Purple, Light Violet
     gray: ['#1f2937', '#4b5563', '#9ca3af']    // Charcoal, Medium Gray, Silver

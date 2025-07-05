@@ -137,11 +137,12 @@ const ModernTemplate = () => {
                       <div className="font-semibold">{job.position}</div>
                       <div style={{ color: `var(--color-accent-text)` }} className="font-medium">{job.company}</div>
                     </div>
-                    <div className="text-gray-500 text-xs">
-                      {job.startDate} - {job.current ? 'Present' : job.endDate}
+                    <div style={{ color: `var(--color-accent-text)` }} className="flex flex-col items-end text-gray-500 text-xs">
+                      {job.location && <div className="text-xs text-gray-500 mb-1">{job.location}</div>}
+                      <div>{job.startDate} - {job.current ? 'Present' : job.endDate}</div>
                     </div>
                   </div>
-                  {job.location && <div className="text-xs text-gray-500 mb-1">{job.location}</div>}
+                  
                   {job.description && (
                     <div 
                       className="text-sm rich-text-content mt-1"
@@ -162,12 +163,14 @@ const ModernTemplate = () => {
               {education.map((edu, index) => (
                 <div key={index} className="text-sm">
                   <div className="flex justify-between items-center">
+                    <div style={{ color: `var(--color-accent-text)` }} className="font-medium">{edu.institution}</div>
+                    {/* {edu.location && <div className="text-xs text-gray-500 mb-1">{edu.location}</div>} */}
+                    {edu.gpa && <div style={{ color: `var(--color-accent-text)` }} className="text-xs">CGPA: {edu.gpa}</div>}
+                  </div>
+                  <div className="flex justify-between items-center">
                     <div className="font-semibold">{edu.degree}</div>
                     <div className="text-gray-500 text-xs">{edu.startDate} - {edu.endDate}</div>
                   </div>
-                  <div style={{ color: `var(--color-accent-text)` }} className="font-medium">{edu.institution}</div>
-                  {edu.location && <div className="text-xs text-gray-500 mb-1">{edu.location}</div>}
-                  {edu.gpa && <div className="text-xs">CGPA: {edu.gpa}</div>}
                   {edu.description && (
                     <div 
                       className="text-sm rich-text-content mt-1"

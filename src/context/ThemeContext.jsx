@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { templates as resumeTemplates } from './TemplateContext';
 
 // Define theme options with their Tailwind class mappings
 export const themes = {
@@ -23,6 +24,28 @@ export const themes = {
     cardBackground: 'bg-white',
     buttonPrimary: 'bg-blue-600 hover:bg-blue-700 text-white', // secondary color
     buttonSecondary: 'bg-blue-100 hover:bg-blue-200 text-blue-800',
+  },
+  red: {
+    name: 'Red',
+    // Color palette
+    primary: 'bg-red-800 text-white', // Dark red
+    secondary: 'bg-red-600 text-white', // Medium red
+    accent: 'bg-red-400 text-red-900', // Light red
+    
+    // UI mappings
+    background: 'bg-white',
+    text: 'text-gray-800',
+    sectionHeading: 'text-red-800 font-semibold', // primary color
+    border: 'border-red-200',
+    accent: 'text-red-600', // secondary color
+    skillBadge: 'bg-red-100 text-red-800',
+    headerBackground: 'bg-red-50',
+    headerText: 'text-red-900',
+    sidebarBackground: 'bg-white',
+    formBackground: 'bg-gray-50',
+    cardBackground: 'bg-white',
+    buttonPrimary: 'bg-red-600 hover:bg-red-700 text-white', // secondary color
+    buttonSecondary: 'bg-red-100 hover:bg-red-200 text-red-800',
   },
   green: {
     name: 'Green',
@@ -96,10 +119,24 @@ export const themes = {
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
+  // Get default theme for a template
+  const getDefaultThemeForTemplate = (templateId) => {
+    if (resumeTemplates[templateId] && resumeTemplates[templateId].defaultTheme) {
+      return resumeTemplates[templateId].defaultTheme;
+    }
+    return 'blue'; // Fallback to blue if no default theme is specified
+  };
+  
   // Load theme from localStorage or use default
   const loadSavedTheme = () => {
     const savedTheme = localStorage.getItem('resumeTheme');
-    return savedTheme && themes[savedTheme] ? savedTheme : 'blue';
+    if (savedTheme && themes[savedTheme]) {
+      return savedTheme;
+    }
+    
+    // If no saved theme, use default theme for current template
+    const currentTemplate = localStorage.getItem('resumeTemplate') || 'classic';
+    return getDefaultThemeForTemplate(currentTemplate);
   };
 
   const [currentTheme, setCurrentTheme] = useState(loadSavedTheme);
@@ -110,7 +147,8 @@ export const ThemeProvider = ({ children }) => {
     
     // Apply theme to body for global styles
     document.body.classList.remove(
-      'theme-blue', 
+      'theme-blue',
+      'theme-red',
       'theme-green', 
       'theme-purple', 
       'theme-gray'
@@ -131,7 +169,8 @@ export const ThemeProvider = ({ children }) => {
         currentTheme,
         theme: themes[currentTheme],
         themes,
-        changeTheme
+        changeTheme,
+        getDefaultThemeForTemplate
       }}
     >
       {children}

@@ -330,7 +330,7 @@ const ModernTemplate = () => {
   return (
     <div 
       id="resume-preview" 
-      className="bg-white shadow-lg border theme-border rounded-lg p-6 max-w-4xl mx-auto my-4"
+      className="bg-white shadow-lg border theme-border rounded-lg md:p-6 p-0 max-w-4xl mx-auto my-4"
     >
       <div className="px-8 py-6 print:p-0">
         <Header />

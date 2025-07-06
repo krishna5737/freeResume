@@ -53,7 +53,7 @@ const TemplateSwitcher = () => {
       {isOpen && (
         <div 
           id="template-dropdown"
-          className="absolute mt-2 w-72 right-0 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10"
+          className="absolute mt-2 w-72 right-0 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50"
         >
           <div className="py-1">
             {/* Default theme option */}

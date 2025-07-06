@@ -49,7 +49,7 @@ const sampleResumeData = {
     {
       company: "Vitara - An Analytics Company",
       position: "Software Engineer",
-      location: "",
+      location: "Hyderabad",
       startDate: "June 2018",
       endDate: "Sep. 2020",
       current: false,
@@ -81,10 +81,11 @@ const sampleResumeData = {
   skills: [],
   projects: [
     {
-      name: "Imitation of Human Motion on a Humanoid Robot",
+      title: "Imitation of Human Motion on a Humanoid Robot",
       link: "",
       technologies: "Image Processing, Vector Algebra, Machine Learning, Python, MATLAB",
-      date: "Feb 2017 - July 2017",
+      startDate: "Feb 2017",
+      endDate: "July 2017",
       description: "• Built an offline inverse kinematics-based system to enable the NAO robot to imitate human upper limb motions captured using Kinect V1.\n• Processed depth images to extract skeleton joint data and mapped it to the robot's joints, handling differences in human-robot kinematics.\n• Applied single and multi-objective optimization to compress motion data for faster processing and deployment.\n• Achieved smooth and reliable motion replication through experimental validation."
     }
   ],

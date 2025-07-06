@@ -47,7 +47,7 @@ const ResumeBuilder = () => {
         
         {/* Right side - Preview */}
         <div className={`md:w-1/2 ${theme.formBackground} overflow-y-auto`}>
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto md:p-4 p-0">
             <TemplateRenderer />
           </div>
         </div>

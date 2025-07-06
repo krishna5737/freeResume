@@ -211,23 +211,6 @@ const ClassicTemplate = () => {
                       Link
                     </a>
                   )}
-                  {/* {project.technologies && (
-                    <div className="mt-1 text-sm">
-                      <span>Skills Required: </span>
-                      {typeof project.technologies === 'string' ? 
-                        project.technologies.split(',').map((tech, techIndex, array) => (
-                          <span key={techIndex}>
-                            {tech.trim()}{techIndex < array.length - 1 ? ', ' : ''}
-                          </span>
-                        )) : 
-                        (Array.isArray(project.technologies) && project.technologies.map((tech, techIndex, array) => (
-                          <span key={techIndex}>
-                            {tech}{techIndex < array.length - 1 ? ', ' : ''}
-                          </span>
-                        )))
-                      }
-                    </div>
-                  )} */}
                 </div>
               ))}
             </div>

@@ -10,18 +10,18 @@ const ModernTemplate = () => {
 
   // Header component with modern styling
   const Header = () => (
-    <header className="text-center mb-6">
+    <header className="text-center">
       <div className="flex justify-center items-end mb-2">
         <h1 className="text-4xl font-bold">
           <span style={{ color: `var(--color-accent-text)` }}>{personalInfo.name?.split(' ')[0] || 'Your'}</span>
-          <span className="ml-2 font-bold" style={{ color: '#333' }}>{personalInfo.name?.split(' ').slice(1).join(' ') || 'Name'}</span>
+          <span className="font-bold" style={{ color: '#333' }}>{ " " + personalInfo.name?.split(' ').slice(1).join(' ') || 'Name'}</span>
         </h1>
       </div>
       <p className="uppercase tracking-wider text-sm font-medium" style={{ color: `var(--color-accent-text)` }}>
         {personalInfo.title || 'Professional Title'}
       </p>
       
-      <div className="flex justify-center gap-4 mt-3 text-sm text-gray-600 flex-wrap">
+      <div className="flex justify-center gap-2 mt-3 text-sm text-gray-600 flex-wrap">
         {personalInfo.email && (
           <a href={`mailto:${personalInfo.email}`} className="hover:underline flex items-center gap-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3 h-3">
@@ -65,7 +65,7 @@ const ModernTemplate = () => {
             <div key={"linkedIn"} className="flex items-center gap-1">
             <span>
               <a href={`https://www.linkedin.com/${personalInfo.linkedinUsername}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-purple-600 transition-colors">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                     <rect width="4" height="12" x="2" y="9"></rect>
                     <circle cx="4" cy="4" r="2"></circle>
@@ -79,7 +79,7 @@ const ModernTemplate = () => {
             <div key={"Github"} className="flex items-center gap-1">
             <span>
               <a href={`https://www.github.com/${personalInfo.githubUsername}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-purple-600 transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
                   <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
                   <path d="M9 18c-4.51 2-5-2-7-2"></path>
                 </svg>
@@ -138,7 +138,10 @@ const ModernTemplate = () => {
                       <div style={{ color: `var(--color-accent-text)` }} className="font-medium">{job.company}</div>
                     </div>
                     <div style={{ color: `var(--color-accent-text)` }} className="flex flex-col items-end text-gray-500 text-xs">
-                      {job.location && <div className="text-xs text-gray-500 mb-1">{job.location}</div>}
+                      {job.location && 
+                        <div className="text-xs text-gray-500 mb-1">
+                          {job.location}
+                        </div>}
                       <div>{job.startDate} - {job.current ? 'Present' : job.endDate}</div>
                     </div>
                   </div>
@@ -299,7 +302,7 @@ const ModernTemplate = () => {
                               style={{ color: `var(--color-accent-text)` }}
                               className="hover:underline text-xs inline-flex items-center"
                             >
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 ml-1 mr-1" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
                                 <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
                               </svg>

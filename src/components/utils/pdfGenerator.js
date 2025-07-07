@@ -66,6 +66,10 @@ const prepareResumeElement = () => {
     #resume-preview .mb-4 {
       margin-bottom: 1rem !important;
     }
+
+    #resume-preview .ml-2 {
+      margin-bottom: 0.5rem !important;
+    }
     
     /* Add spacing between items in sections */
     #resume-preview .space-y-2 > div {

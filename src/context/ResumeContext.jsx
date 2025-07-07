@@ -20,20 +20,10 @@ const sampleResumeData = {
     email: "krishna.5737@gmail.com",
     location: "Hyderabad",
     phone: "+91-9984668852",
-    linkedinUsername: "",
-    githubUsername: "",
+    linkedinUsername: "krishankumar12",
+    githubUsername: "krishna5737",
     title: "Senior Software Developer at Servicenow",
     name: "Krishan Kumar",
-    links: [
-      {
-        label: "LinkedIn",
-        url: "k"
-      },
-      {
-        label: "GitHub",
-        url: "f"
-      }
-    ]
   },
   summary: "Experienced Software Developer with 7+ years in full-stack and AI-driven product development, currently at ServiceNow. Proven track record in leading agile teams, designing intelligent automation solutions, and building scalable UI components. ",
   experience: [
@@ -53,7 +43,7 @@ const sampleResumeData = {
       startDate: "June 2018",
       endDate: "Sep. 2020",
       current: false,
-      description: "• Led the redesign and redevelopment of the Property Editor, significantly improving usability and overall user experience.\n• Optimized the build pipeline by refactoring the codebase—reducing build time from 3 minutes to 8 seconds and shrinking build size from 10MB to 500KB.\n• Built an interactive Map Chart visualization from scratch, enabling users to explore and analyze geographical data efficiently.\n• Developed and enhanced data analytics visualizations, owning the full cycle from development to testing and support. \n"
+      description: "• Led the redesign and redevelopment of the Property Editor, significantly improving usability and overall user experience.\n• Optimized the build pipeline by refactoring the codebase—reducing build time from 3 minutes to 8 seconds and shrinking build size from 10MB to 500KB.\n• Built an interactive Map Chart visualization from scratch, enabling users to explore and analyze geographical data efficiently.\n• Developed and enhanced data analytics visualizations, owning the full cycle from development to testing and support."
     },
     {
       company: "MAQ Software",
@@ -75,7 +65,7 @@ const sampleResumeData = {
       endDate: "Aug. 2017",
       current: false,
       gpa: "8.4/10",
-      description: "Worked as a Teaching Assistant for the Operating Systems course during my master's program. Graded assignments and exams promptly,\nproviding constructive feedback to foster academic growth."
+      description: "Worked as a Teaching Assistant for the Operating Systems course during my master's program. Graded assignments and exams promptly, providing constructive feedback to foster academic growth."
     }
   ],
   skills: [],
@@ -113,63 +103,7 @@ const sampleResumeData = {
       year: "2019"
     }
   ],
-  pageBreaks: [
-    {
-      id: "page-break-1751397932791",
-      position: 0
-    },
-    {
-      id: "page-break-1751398317668"
-    },
-    {
-      id: "page-break-1751398318824"
-    },
-    {
-      id: "page-break-1751398319858"
-    },
-    {
-      id: "page-break-1751398320056"
-    },
-    {
-      id: "page-break-1751398345403"
-    },
-    {
-      id: "page-break-1751398346060"
-    },
-    {
-      id: "page-break-1751398346235"
-    },
-    {
-      id: "page-break-1751398346390"
-    },
-    {
-      id: "page-break-1751398346554"
-    },
-    {
-      id: "page-break-1751398346735"
-    },
-    {
-      id: "page-break-1751398356529"
-    },
-    {
-      id: "page-break-1751398395177"
-    },
-    {
-      id: "page-break-1751398413676"
-    },
-    {
-      id: "page-break-1751398414185"
-    },
-    {
-      id: "page-break-1751398414375"
-    },
-    {
-      id: "page-break-1751398414534"
-    },
-    {
-      id: "page-break-1751398414728"
-    }
-  ],
+  pageBreaks: [],
   sectionOrder: [
     "personalInfo",
     "summary",

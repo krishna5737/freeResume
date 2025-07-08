@@ -104,7 +104,6 @@ export const themes = {
     text: 'text-gray-800',
     sectionHeading: 'text-gray-800 font-semibold', // primary color
     border: 'border-gray-300',
-    accent: 'text-gray-600', // secondary color
     skillBadge: 'bg-gray-200 text-gray-800',
     headerBackground: 'bg-gray-100',
     headerText: 'text-gray-900',

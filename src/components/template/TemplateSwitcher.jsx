@@ -83,7 +83,9 @@ const TemplateSwitcher = () => {
                 <div className="flex items-center">
                   <div className="w-3 h-3 rounded-full mr-2 border border-gray-300" 
                     style={{ 
-                      backgroundColor: templateId === 'classic' ? '#f8fafc' : '#4f46e5'
+                      backgroundColor: templateId === 'classic' ? '#f8fafc' : 
+                                      templateId === 'modern' ? '#4f46e5' : 
+                                      templateId === 'compact' ? '#4b5563' : '#f8fafc'
                     }}
                   ></div>
                   {templates[templateId].name}

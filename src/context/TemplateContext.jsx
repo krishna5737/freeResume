@@ -23,6 +23,17 @@ export const templates = {
       { id: 'red', name: 'Red' },
       { id: 'green', name: 'Green' }
     ]
+  },
+  compact: {
+    id: 'compact',
+    name: 'Compact',
+    description: 'A clean two-column layout inspired by LaTeX resume designs',
+    defaultTheme: 'gray', // Default theme for compact template
+    recommendedThemes: [
+      { id: 'gray', name: 'Gray' },
+      { id: 'blue', name: 'Blue' },
+      { id: 'red', name: 'Red' }
+    ]
   }
 };
 

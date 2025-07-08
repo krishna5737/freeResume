@@ -1,211 +1,243 @@
-import html2pdf from 'html2pdf.js';
 import { themes } from '../../context/ThemeContext';
 
-// Helper function to prepare the resume element for PDF generation
-const prepareResumeElement = () => {
-  // Get the current theme from localStorage
-  const currentTheme = localStorage.getItem('resumeTheme') || 'light';
-  // Get the resume preview element
-  const element = document.getElementById('resume-preview');
-  
-  if (!element) {
-    console.error('Resume preview element not found');
-    return null;
-  }
-  
-  // Clone the element to avoid modifying the original
-  const clonedElement = element.cloneNode(true);
-  
-  // Fix bullet points and remove margins in the DOM
-  const richTextContents = clonedElement.querySelectorAll('.rich-text-content');
-  richTextContents.forEach(container => {
-    // Remove margin-left from rich-text-content
-    container.style.marginLeft = '0';
-    
-    // Find all bullet points
-    const bulletPoints = container.querySelectorAll('ul li');
-    bulletPoints.forEach(li => {
-      // Remove any leading spaces before bullet points
-      if (li.innerHTML.startsWith(' ')) {
-        li.innerHTML = li.innerHTML.trimStart();
-      }
-      // Adjust styling directly
-      li.style.textIndent = '0';
-      li.style.marginLeft = '0';
-      li.style.paddingLeft = '0';
-    });
-    
-    // Adjust ul elements
-    const ulElements = container.querySelectorAll('ul');
-    ulElements.forEach(ul => {
-      ul.style.paddingLeft = '0rem';
-      ul.style.marginTop = '0.25rem';
-    });
-  });
-  
-  // Remove border and apply theme styles
-  const styles = document.createElement('style');
-  styles.textContent = `
-    #resume-preview {
-      border: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      max-width: 100% !important;
-    }
-    
-    .border {
-      border: none !important;
-    }
-    
-    /* Add balanced padding in resume content */
-    #resume-preview > div {
-      padding: 8mm !important;
-    }
-    
-    /* Add more spacing between sections */
-    #resume-preview .mb-4 {
-      margin-bottom: 1rem !important;
-    }
+// Backend API URL - automatically selects production or development URL
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://resume-builder-backend-yourvercelapp.vercel.app/api'  // Replace with your actual Vercel backend URL
+  : 'http://localhost:3001/api';
 
-    #resume-preview .ml-2 {
-      margin-bottom: 0.5rem !important;
-    }
-    
-    /* Add spacing between items in sections */
-    #resume-preview .space-y-2 > div {
-      margin-bottom: 0.75rem !important;
-    }
-    
-    /* Apply current theme styles */
-    #resume-preview {
-      color: var(--color-text) !important;
-      background-color: var(--color-bg) !important;
-    }
-    
-    #resume-preview h1, #resume-preview h2, #resume-preview h3, #resume-preview h4 {
-      color: var(--color-heading) !important;
-    }
-    
-    #resume-preview .skill-badge {
-      background-color: var(--color-skill-bg) !important;
-      color: var(--color-skill-text) !important;
-    }
-    
-    #resume-preview .accent-text {
-      color: var(--color-accent-text) !important;
-    }
-    
-    /* Apply theme color variables to buttons and interactive elements */
-    #resume-preview .theme-button {
-      background-color: var(--color-button-bg) !important;
-      color: var(--color-button-text) !important;
-    }
-    
-    #resume-preview .theme-button:hover {
-      background-color: var(--color-button-hover) !important;
-    }
-    
-    /* Apply theme border colors */
-    #resume-preview .theme-border {
-      border-color: var(--color-border) !important;
+// Function to create and show loading overlay
+const showLoadingOverlay = () => {
+  // Get current theme from localStorage
+  const currentThemeName = localStorage.getItem('resumeTheme') || 'blue';
+  const theme = themes[currentThemeName] || themes.blue;
+  const primaryColor = theme.primary || '#2563eb';
+  
+  // Create overlay container
+  const overlay = document.createElement('div');
+  overlay.id = 'pdf-loading-overlay';
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  `;
+  
+  // Create loader
+  const loader = document.createElement('div');
+  loader.style.cssText = `
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: ${primaryColor};
+    animation: spin 1s ease-in-out infinite;
+    margin-bottom: 20px;
+  `;
+  
+  // Add animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
   `;
-  document.head.appendChild(styles);
+  document.head.appendChild(style);
   
-  // Add the current theme class to the cloned element
-  clonedElement.classList.add(`theme-${currentTheme}`);
+  // Add message
+  const message = document.createElement('div');
+  message.textContent = 'Generating PDF...';
+  message.style.cssText = `
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: system-ui, -apple-system, sans-serif;
+  `;
   
-  return { element: clonedElement, styles };
+  // Assemble overlay
+  overlay.appendChild(loader);
+  overlay.appendChild(message);
+  document.body.appendChild(overlay);
+  
+  return overlay;
 };
 
-// Helper function to add footer to all pages
-const addFooterToPages = (pdf, userName) => {
-  const totalPages = pdf.internal.getNumberOfPages();
-  
-  if (totalPages < 1) return;
-  
-  // Add footer to all pages
-  for (let i = 1; i <= totalPages; i++) {
-    pdf.setPage(i);
-    
-    // Set font styles for footer
-    pdf.setFontSize(8);
-    pdf.setTextColor(100, 100, 100);
-    
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-    
-    // Current date for left side of footer
-    const currentDate = new Date().toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    });
-    pdf.text(currentDate, 10, pageHeight - 10);
-    
-    // Name and Resume text for center
-    const centerText = `${userName} \u00b7 Resume`;
-    pdf.text(centerText, pageWidth / 2, pageHeight - 10, { align: 'center' });
-    
-    // Page number for right side
-    pdf.text(`${i}`, pageWidth - 10, pageHeight - 10, { align: 'right' });
-    
-    // Add thin line above footer
-    pdf.setDrawColor(200, 200, 200);
-    pdf.line(10, pageHeight - 15, pageWidth - 10, pageHeight - 15);
+// Function to hide loading overlay
+const hideLoadingOverlay = () => {
+  const overlay = document.getElementById('pdf-loading-overlay');
+  if (overlay) {
+    document.body.removeChild(overlay);
   }
 };
 
 // Main function to generate and download PDF
-export const generatePDF = () => {
-  // Prepare the resume element
-  const prepared = prepareResumeElement();
-  if (!prepared) return;
+export const generatePDF = async () => {
+  let loadingOverlay = null;
   
-  const { element, styles } = prepared;
-  
-  // Get user name for the footer
-  const userName = element.querySelector('h1')?.textContent || 'Resume';
-  
-  // Configure html2pdf options
-  const opt = {
-    margin: [3, 3, 15, 3], // top, right, bottom, left (in mm) - minimal margins
-    filename: 'resume.pdf',
-    image: { type: 'jpeg', quality: 1 },
-    html2canvas: { 
-      scale: 4,
-      useCORS: true,
-      letterRendering: true,
-      logging: false,
-      dpi: 300,
-      windowWidth: document.documentElement.offsetWidth,
-      windowHeight: document.documentElement.offsetHeight
-    },
-    jsPDF: { 
-      unit: 'mm', 
-      format: 'a4', 
-      orientation: 'portrait',
-      compress: true,
-      precision: 16
+  try {
+    // Show loading overlay
+    loadingOverlay = showLoadingOverlay();
+    
+    // Get the resume preview element
+    const element = document.getElementById('resume-preview');
+    if (!element) {
+      console.error('Resume preview element not found');
+      return;
     }
-  };
-  
-  // Generate PDF with footer
-  html2pdf()
-    .set(opt)
-    .from(element)
-    .toPdf()
-    .get('pdf')
-    .then(pdf => {
-      // Add footer to all pages
-      addFooterToPages(pdf, userName);
-      return pdf;
-    })
-    .save()
-    .then(() => {
-      // Clean up
-      setTimeout(() => {
-        document.head.removeChild(styles);
-      }, 1000);
+
+    // Get the complete HTML content
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <style>
+          ${Array.from(document.styleSheets)
+            .filter(sheet => sheet.href === null) // Only inline styles
+            .map(sheet => 
+              Array.from(sheet.cssRules)
+                .map(rule => rule.cssText)
+                .join('\n')
+            )
+            .join('\n')}
+        </style>
+      </head>
+      <body>
+        ${element.outerHTML}
+      </body>
+      </html>
+    `;
+
+    console.log('Sending request to generate PDF...');
+    // Send request to backend
+    const response = await fetch(`${API_URL}/pdf/generate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // Don't use credentials: 'include' to avoid CORS preflight complexity
+      body: JSON.stringify({
+        html: htmlContent
+      })
     });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('PDF Generation failed:', errorData);
+      throw new Error(errorData.message || errorData.error || 'Failed to generate PDF');
+    }
+
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/pdf')) {
+      console.error('Invalid response type:', contentType);
+      throw new Error('Server did not return a PDF');
+    }
+
+    // Get the PDF blob
+    const pdfBlob = await response.blob();
+
+    // Create download link
+    const downloadUrl = window.URL.createObjectURL(pdfBlob);
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+    link.download = 'resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+
+    // Clean up
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(downloadUrl);
+    
+    // Success message
+    if (loadingOverlay) {
+      hideLoadingOverlay();
+      showSuccessMessage('PDF generated successfully!');
+    }
+  } catch (error) {
+    console.error('PDF Generation Error:', error);
+    
+    // Hide loading and show error
+    if (loadingOverlay) {
+      hideLoadingOverlay();
+      showErrorMessage('Failed to generate PDF: ' + (error.message || 'Unknown error'));
+    }
+    throw error;
+  }
+};
+
+// Success message toast
+const showSuccessMessage = (message) => {
+  const toast = document.createElement('div');
+  toast.style.cssText = `
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #10b981;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    animation: fadeInOut 3s ease forwards;
+  `;
+  
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translate(-50%, 20px); }
+      10% { opacity: 1; transform: translate(-50%, 0); }
+      90% { opacity: 1; transform: translate(-50%, 0); }
+      100% { opacity: 0; transform: translate(-50%, -20px); }
+    }
+  `;
+  document.head.appendChild(style);
+  
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    if (document.body.contains(toast)) {
+      document.body.removeChild(toast);
+    }
+  }, 3000);
+};
+
+// Error message toast
+const showErrorMessage = (message) => {
+  const toast = document.createElement('div');
+  toast.style.cssText = `
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ef4444;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    animation: fadeInOut 4s ease forwards;
+  `;
+  
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  
+  setTimeout(() => {
+    if (document.body.contains(toast)) {
+      document.body.removeChild(toast);
+    }
+  }, 4000);
 };

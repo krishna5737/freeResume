@@ -2,6 +2,7 @@ import React from 'react';
 import { useTemplate } from '../../context/TemplateContext';
 import ClassicTemplate from './ClassicTemplate';
 import ModernTemplate from './ModernTemplate';
+import CompactTemplate from './CompactTemplate';
 
 const TemplateRenderer = () => {
   const { currentTemplate } = useTemplate();
@@ -10,6 +11,8 @@ const TemplateRenderer = () => {
   switch (currentTemplate) {
     case 'modern':
       return <ModernTemplate />;
+    case 'compact':
+      return <CompactTemplate />;
     case 'classic':
     default:
       return <ClassicTemplate />;

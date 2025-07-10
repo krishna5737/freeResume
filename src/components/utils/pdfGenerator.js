@@ -3,7 +3,8 @@ import { themes } from '../../context/ThemeContext';
 // Backend API URL - automatically selects production or development URL
 const API_URL = process.env.NODE_ENV === 'production' 
   ? 'https://freeresumebackend.onrender.com/api'  // Replace with your actual Vercel backend URL
-  : 'https://freeresumebackend.onrender.com/api';
+  : 'http://localhost:3001/api';
+
 
 // Function to create and show loading overlay
 const showLoadingOverlay = () => {

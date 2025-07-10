@@ -3,7 +3,7 @@ import { themes } from '../../context/ThemeContext';
 // Backend API URL - automatically selects production or development URL
 const API_URL = process.env.NODE_ENV === 'production' 
   ? 'https://freeresumebackend.onrender.com/api'  // Replace with your actual Vercel backend URL
-  : 'http://localhost:3001/api';
+  : 'https://freeresumebackend.onrender.com/api';
 
 // Function to create and show loading overlay
 const showLoadingOverlay = () => {
@@ -91,25 +91,63 @@ export const generatePDF = async () => {
       return;
     }
 
-    // Get the complete HTML content
+    // Function to get all styles from document
+    const getAllStyles = () => {
+      const styleSheets = Array.from(document.styleSheets);
+      let cssText = '';
+      
+      styleSheets.forEach(sheet => {
+        try {
+          const rules = sheet.cssRules || [];
+          Array.from(rules).forEach(rule => {
+            cssText += rule.cssText + '\n';
+          });
+        } catch (e) {
+          // Handle CORS issues with external stylesheets
+          if (sheet.href) {
+            cssText += `@import url('${sheet.href}');\n`;
+          }
+        }
+      });
+      
+      // Get inline styles
+      const inlineStyles = Array.from(document.querySelectorAll('style'))
+        .map(style => style.textContent)
+        .join('\n');
+      
+      return cssText + '\n' + inlineStyles;
+    };
+
+    // Get the complete HTML content with all styles
     const htmlContent = `
       <!DOCTYPE html>
       <html>
       <head>
         <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
         <style>
-          ${Array.from(document.styleSheets)
-            .filter(sheet => sheet.href === null) // Only inline styles
-            .map(sheet => 
-              Array.from(sheet.cssRules)
-                .map(rule => rule.cssText)
-                .join('\n')
-            )
-            .join('\n')}
+          ${getAllStyles()}
+          
+          /* Ensure all elements are visible in PDF */
+          body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
+          
+          /* Force background colors to print */
+          * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
         </style>
       </head>
-      <body>
-        ${element.outerHTML}
+      <body style="margin: 0; padding: 0;">
+        <div style="width: 210mm; min-height: 297mm; margin: 0 auto; padding: 20mm; box-sizing: border-box;">
+          ${element.outerHTML}
+        </div>
       </body>
       </html>
     `;

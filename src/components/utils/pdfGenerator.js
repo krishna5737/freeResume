@@ -3,7 +3,7 @@ import { themes } from '../../context/ThemeContext';
 // Backend API URL - automatically selects production or development URL
 const API_URL = process.env.NODE_ENV === 'production' 
   ? 'https://freeresumebackend.onrender.com/api'  // Replace with your actual Vercel backend URL
-  : 'http://localhost:3001/api';
+  : 'http://localhost:3000/api';
 
 
 // Function to create and show loading overlay
@@ -91,6 +91,44 @@ export const generatePDF = async () => {
       console.error('Resume preview element not found');
       return;
     }
+    
+    // Get current theme from localStorage
+    const currentThemeName = localStorage.getItem('resumeTheme') || 'blue';
+    
+    // Build theme CSS variables to inject into the PDF HTML
+    // This ensures the PDF gets the correct theme colors
+    let themeCSS = '';
+    
+    // Get the computed style for the themed variables
+    const computeThemeVariable = (varName) => {
+      return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+    };
+    
+    // Create theme CSS that explicitly sets all CSS variables used in the resume
+    themeCSS = `
+      :root {
+        --color-primary: ${computeThemeVariable('--color-primary')};
+        --color-secondary: ${computeThemeVariable('--color-secondary')};
+        --color-accent: ${computeThemeVariable('--color-accent')};
+        --color-bg: ${computeThemeVariable('--color-bg')};
+        --color-text: ${computeThemeVariable('--color-text')};
+        --color-heading: ${computeThemeVariable('--color-heading')};
+        --color-border: ${computeThemeVariable('--color-border')};
+        --color-accent-text: ${computeThemeVariable('--color-accent-text')};
+        --color-skill-bg: ${computeThemeVariable('--color-skill-bg')};
+        --color-skill-text: ${computeThemeVariable('--color-skill-text')};
+        --color-header-bg: ${computeThemeVariable('--color-header-bg')};
+        --color-sidebar-bg: ${computeThemeVariable('--color-sidebar-bg')};
+        --color-form-bg: ${computeThemeVariable('--color-form-bg')};
+        --color-card-bg: ${computeThemeVariable('--color-card-bg')};
+        --color-button-bg: ${computeThemeVariable('--color-button-bg')};
+        --color-button-hover: ${computeThemeVariable('--color-button-hover')};
+        --color-button-text: ${computeThemeVariable('--color-button-text')};
+      }
+      
+      /* Also apply theme class to the HTML for safety */
+      html, body { background-color: var(--color-bg); }
+    `;
 
     // Function to get all styles from document
     const getAllStyles = () => {
@@ -127,28 +165,18 @@ export const generatePDF = async () => {
         <meta charset="UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
         <style>
-          ${getAllStyles()}
-          
-          /* Ensure all elements are visible in PDF */
-          body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
-          
-          /* Force background colors to print */
-          * {
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-          }
+          ${Array.from(document.styleSheets)
+            .filter(sheet => sheet.href === null) // Only inline styles
+            .map(sheet => 
+              Array.from(sheet.cssRules)
+                .map(rule => rule.cssText)
+                .join('\n')
+            )
+            .join('\n')}
         </style>
       </head>
-      <body style="margin: 0; padding: 0;">
-        <div style="width: 210mm; min-height: 297mm; margin: 0 auto; padding: 20mm; box-sizing: border-box;">
-          ${element.outerHTML}
-        </div>
+      <body>
+        ${element.outerHTML}
       </body>
       </html>
     `;

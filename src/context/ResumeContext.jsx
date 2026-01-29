@@ -15,104 +15,140 @@ const defaultSectionOrder = [
 // Sample resume data with filled information
 const sampleResumeData = {
   personalInfo: {
-    firstName: "Krishan",
-    lastName: "Kumar",
-    email: "krishna.5737@gmail.com",
-    location: "Hyderabad",
-    phone: "+91-9984668852",
-    linkedinUsername: "krishankumar12",
-    githubUsername: "krishna5737",
-    title: "Senior Software Developer at Servicenow",
-    name: "Krishan Kumar",
+    firstName: "Prashant",
+    lastName: "Kushwah",
+    email: "prashantkushwah913@gmail.com",
+    location: "",
+    phone: "+91-9793271167",
+    linkedinUsername: "prashant-kumar-87a909211/",
+    githubUsername: "PrashantKumar9786",
+    title: "",
+    name: "Prashant Kushwah",
   },
-  summary: "Experienced Software Developer with 7+ years in full-stack and AI-driven product development, currently at ServiceNow. Proven track record in leading agile teams, designing intelligent automation solutions, and building scalable UI components. ",
-  experience: [
-    {
-      company: "ServiceNow",
-      position: "Sr. Software Developer",
-      location: "Hyderabad",
-      startDate: "Oct. 2020",
-      endDate: "",
-      current: true,
-      description: "• Worked as a Scrum Master, leading a cross-functional team through Grooming, Planning, and Backlog sessions. Managed release planning, branch strategy, and team coordination. Acted as the main point of contact between the Product Owner and senior stakeholders to ensure timely and high-quality delivery.\n• Built AI Agent to handle non-critical HR cases, successfully redirecting **85%** of such cases—allowing human agents to focus on critical and sensitive issues.\n• Created AI Agents for multiple HR use cases—including Proactive Prompts and WSD—that user experience through faster, more accurate self-service responses.\n• Utilized Machine Learning techniques to implement Universal request and Issue Auto Resolutions, automating case resolution and efficient ticket routing to the appropriate departments reducing the time for case resolution by **60%**.\n• Significantly contributed to the development of a common React component library, implementing complex components in alignment with internal Figma designs, enhancing UI consistency and accelerating development speed by **30%** across multiple projects.\n• Developed a custom AngularJS widget that allows users to upload, view, and manage their skills and experiences—delivering functionality similar to LinkedIn."
-    },
-    {
-      company: "Vitara - An Analytics Company",
-      position: "Software Engineer",
-      location: "Hyderabad",
-      startDate: "June 2018",
-      endDate: "Sep. 2020",
-      current: false,
-      description: "• Led the redesign and redevelopment of the Property Editor, significantly improving usability and overall user experience.\n• Optimized the build pipeline by refactoring the codebase—reducing build time from 3 minutes to 8 seconds and shrinking build size from 10MB to 500KB.\n• Built an interactive Map Chart visualization from scratch, enabling users to explore and analyze geographical data efficiently.\n• Developed and enhanced data analytics visualizations, owning the full cycle from development to testing and support."
-    },
-    {
-      company: "MAQ Software",
-      position: "Software Engineer",
-      location: "Hyderabad",
-      startDate: "Sep. 2017",
-      endDate: "Apr. 2018",
-      current: false,
-      description: "• Worked as part of data science team to forecast Microsoft Sales Insights using advanced Machine Learning models. Leveraged Microsoft Azure Machine Learning Studio, Jupyter Notebook, and MSSQL to clean, preprocess, and model sales data for accurate trend prediction.\n• Contributed to the development of custom Power BI plugins using TypeScript, HTML, and CSS, enhancing platform capabilities and user experience through tailored visual components.\n• Designed and developed analytical cubes on MS SQL Server tables to support rich, interactive Power BI reports, enabling actionable insights from curated data."
-    }
-  ],
+  summary: "",
+  experience: [],
   education: [
     {
-      institution: "IIIT Allahabad",
-      degree: "M.Tech",
-      field: "IT - Robotics",
+      institution: "Pranveer Singh Institute of Technology, Kanpur",
+      degree: "B.Tech",
+      field: "Computer Science and Engineering",
       location: "",
-      startDate: "July 2015",
-      endDate: "Aug. 2017",
+      startDate: "Dec. 2022",
+      endDate: "Present",
+      current: true,
+      gpa: "7.7/10.0",
+      description: ""
+    },
+    {
+      institution: "Saraswati Vidya Mandir, Agra, UP",
+      degree: "Senior Secondary",
+      field: "Class XII",
+      location: "",
+      startDate: "Apr. 2021",
+      endDate: "Apr. 2022",
       current: false,
-      gpa: "8.4/10",
-      description: "Worked as a Teaching Assistant for the Operating Systems course during my master's program. Graded assignments and exams promptly, providing constructive feedback to foster academic growth."
+      gpa: "84.2%",
+      description: ""
+    },
+    {
+      institution: "Saraswati Vidya Mandir, Agra, UP",
+      degree: "Secondary School",
+      field: "Class X",
+      location: "",
+      startDate: "Apr. 2019",
+      endDate: "Apr. 2020",
+      current: false,
+      gpa: "71%",
+      description: ""
     }
   ],
-  skills: [],
+  skills: [
+    "C++",
+    "JavaScript",
+    "SQL",
+    "HTML5",
+    "CSS3",
+    "Tailwind CSS",
+    "React.js",
+    "Node.js",
+    "Express.js",
+    "REST APIs",
+    "JWT Authentication",
+    "MongoDB",
+    "MySQL",
+    "GitHub",
+    "Postman",
+    "VS Code",
+    "OOPs",
+    "Operating Systems",
+    "Database Management System"
+  ],
   projects: [
     {
-      title: "Imitation of Human Motion on a Humanoid Robot",
+      title: "ResumeNest - Smart Resume Builder",
       link: "",
-      technologies: "Image Processing, Vector Algebra, Machine Learning, Python, MATLAB",
-      startDate: "Feb 2017",
-      endDate: "July 2017",
-      description: "• Built an offline inverse kinematics-based system to enable the NAO robot to imitate human upper limb motions captured using Kinect V1.\n• Processed depth images to extract skeleton joint data and mapped it to the robot's joints, handling differences in human-robot kinematics.\n• Applied single and multi-objective optimization to compress motion data for faster processing and deployment.\n• Achieved smooth and reliable motion replication through experimental validation."
+      technologies: "React.js, TailwindCSS, JavaScript, Git, Vercel",
+      startDate: "July 2025",
+      endDate: "Aug. 2025",
+      description: "• Built full-stack resume generator application with structured backend integration for live preview and client-side export.\n• Integrated jsPDF and html2canvas to generate clean, downloadable PDF resumes on the client side.\n• Designed a responsive and accessible UI using TailwindCSS for cross-device compatibility.\n• Designed a responsive and modern UI with TailwindCSS, ensuring accessibility across mobile, tablet, and desktop.\n• Employed modular UI components with TailwindCSS and ensured seamless deployment using Vercel CI/CD."
+    },
+    {
+      title: "DocuSummarizer - Summarization Tool",
+      link: "",
+      technologies: "JavaScript, Node.js, Express.js, REST APIs, MongoDB, OCR, Gemini AI",
+      startDate: "Sep. 2025",
+      endDate: "Oct. 2025",
+      description: "• Developed an AI-based document summarization web app with OCR (Tesseract.js) and PDF text parsing pipeline.\n• Designed and implemented a modular RESTful backend in Express.js, supporting OCR-based document uploads and AI-driven summarization.\n• Developed Express.js RESTful API with memory-based file processing, CORS security, and input validation.\n• Integrated Gemini AI API for generating structured markdown summaries and Tesseract.js for OCR extraction.\n• Focused on backend optimization, request validation, and asynchronous data handling."
     }
   ],
-  certifications: [],
+  certifications: [
+    {
+      name: "Transformer-Based NLP — NVIDIA",
+      issuer: "NVIDIA",
+      date: "",
+      url: ""
+    },
+    {
+      name: "Software Engineering Virtual Experience —JPMorgan Chase, Forage",
+      issuer: "JPMorgan Chase, Forage",
+      date: "",
+      url: ""
+    },
+    {
+      name: "160 Days of Problem Solving — GeeksforGeeks",
+      issuer: "GeeksforGeeks",
+      date: "",
+      url: ""
+    }
+  ],
   customSections: [],
   achievements: [
     {
-      name: "Research Paper: Imitation of Human Motion on Humanoid Robot using Inverse Kinematics and Path Optimisation",
-      url: "http://ieeexplore.ieee.org/document/8662908",
-      year: "2018"
+      name: "Earned 4-Star rating in C++ Programming on HackerRank",
+      url: "",
+      year: ""
     },
     {
-      name: "Microsoft 70-774: Perform Cloud Data Science with Azure Machine Learning",
+      name: "Ranked 204th on GeeksForGeeks with a 800+ coding score, in the top 5% of my college",
       url: "",
-      year: "2018"
+      year: ""
     },
     {
-      name: "Microsoft 70-761: Querying Data with Transact-SQL",
+      name: "Technical Co-Head — IGNITIA 2024: Annual Techno-Cultural Event",
       url: "",
-      year: "2017"
-    },
-    {
-      name: "Udacity Nano Degree for ReactJS",
-      url: "",
-      year: "2019"
+      year: "2024"
     }
   ],
   pageBreaks: [],
   sectionOrder: [
     "personalInfo",
-    "summary",
-    "experience",
-    "skills",
+    "education",
     "projects",
-    "certifications",
+    "skills",
     "achievements",
-    "education"
+    "certifications",
+    "summary",
+    "experience"
   ]
 };
 
